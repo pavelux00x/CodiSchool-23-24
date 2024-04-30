@@ -73,6 +73,11 @@
 			</div>
 		</div>
 	</section>
+<script>
 
+	//bcrypt password = ciao
+
+	
+</script>
 </body>
 </html>

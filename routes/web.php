@@ -33,3 +33,5 @@ Route::get('send/mail/contact={id}', [SendEmailController::class,'mail_pass'])->
 Route::post('send/mail/', [SendEmailController::class,'sendEmail_teacher'])->name('send.mail_teacher_due');
 Route::get('/generate-pdf',[StudentController::class,'generatePDF'])->name('generate.pdf');
 Route::post('/send-chat-message', [StudentController::class, 'sendChatMessage']);
+#root for registration of the student
+

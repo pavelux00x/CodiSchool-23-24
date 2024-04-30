@@ -98,7 +98,13 @@ class StudentController extends Controller
             if($voti->isEmpty()){
                 $voti=null;
             }
-        return view('codischool_dashboardstudent',compact('studente','classe','mediaVoti','professori','voti'));
+        $compiti=DB::table('COMPITI')
+        ->select('COMPITI.title','COMPITI.description','COMPITI.start','COMPITI.end')
+        ->join('CLASSI','CLASSI.ID','=','COMPITI.CLASSE')
+        ->join('STUDENTI','STUDENTI.ID_CLASSE','=','CLASSI.ID')
+        ->where('STUDENTI.ID','=',$studente->ID)
+        ->get();
+        return view('codischool_dashboardstudent',compact('studente','classe','mediaVoti','professori','voti','compiti'));
     }
 
 
@@ -111,8 +117,19 @@ class StudentController extends Controller
 
     $student = Auth::guard('student')->user();
     // ... Your logic to gather all required student data 
-
-    $pdf = PDF::loadView('pdf.student_data', ['student' => $student, /* other data */]);
+    $classe=DB::table('CLASSI')
+    ->select('CLASSI.NOME')
+    ->join('STUDENTI','STUDENTI.ID_CLASSE','=','CLASSI.ID')
+    ->where('STUDENTI.ID','=',$student->ID)
+    ->get();
+    $mediaVoti = DB::table('VOTI')
+    ->select(DB::raw('AVG(VALUTAZIONE) as media'))
+    ->join('STUDENTI', 'STUDENTI.ID', '=', 'VOTI.ID_STUDENTE')
+    ->where('STUDENTI.ID', '=', $student->ID)
+    ->get();
+    $mediaVoti = round($mediaVoti[0]->media, 2);
+    $c=$classe[0]->NOME;
+    $pdf = PDF::loadView('pdf.student_data', ['student' => $student, 'classe' => $c, 'mediaVoti' => $mediaVoti]);
     return $pdf->download('user_data.pdf');
 }
 

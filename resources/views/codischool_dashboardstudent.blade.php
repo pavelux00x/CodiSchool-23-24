@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Studenteß</title>
+  <title>Dashboard Studente</title>
   <link rel='stylesheet' href='//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'><link rel="stylesheet" href="{{ asset('assets/css/style_dashboardstudente.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/table.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -619,23 +619,14 @@ body {
         locale: 'it',
           initialView: 'dayGridMonth',
           events: [ 
-              {
-                  title: 'Saggio di Storia',
-                  start: '2024-02-16',
-                  end: '2024-02-16',
-                  description: 'Scrivere un saggio di 5 pagine sull\'Impero Romano.'
-              },
-              {
-                  title: 'Compiti di Matematica',
-                  start: '2024-02-20',
-                  end: '2024-02-20',
-                  description: 'Risolvere i problemi del Capitolo 5.'
-              },
-              {
-                  title: 'Presentazione di Scienze',
-                  start: '2024-02-28',
-                  description: 'Preparare una presentazione sull\'ecosistema.'
-              }
+            @foreach($compiti as $compito)
+                  {
+                      title: '{{ $compito->title }}',
+                      start: '{{ $compito->start }}',
+                      end: '{{ $compito->end }}',
+                      description: '{{ $compito->description }}'
+                  },
+              @endforeach
           ],
           eventClick: function(info) {
             info.jsEvent.stopPropagation(); // Add this line
@@ -742,7 +733,8 @@ document.body.appendChild(popup);
               const url = window.URL.createObjectURL(new Blob([blob]));
               const link = document.createElement('a');
               link.href = url;
-              link.setAttribute('download', 'user_data.pdf'); 
+              name_pdf='dati_di_{{ $studente->NOME }}.pdf';
+              link.setAttribute('download', name_pdf); 
               document.body.appendChild(link);
               link.click();
               link.parentNode.removeChild(link); 
