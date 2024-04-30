@@ -1,66 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![Alt text](public/assets/img/logo.jpg)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## About My Project
 
-## About Laravel
+Codischool, Still to be finished.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Created by Pavel Filingeri.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Why i have choosed Laravel?
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<strong> Clean Syntax: </strong>Laravel's syntax is elegant and easy to understand, enhancing developer productivity and code readability.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<strong> Modular System: </strong> Its modular packaging system and Composer dependency manager allow for easy integration of functionalities via pre-built packages or custom modules.
 
-## Laravel Sponsors
+<strong> Built-in Features: </strong> Laravel offers built-in features like authentication, caching, and sessions, reducing development time and ensuring robust security.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<strong> Eloquent ORM: </strong> Laravel's Eloquent ORM simplifies database operations by using PHP syntax, eliminating the need for complex SQL queries and improving code organization.
 
-### Premium Partners
+<strong> Active Community: </strong> With a large and active community, Laravel provides extensive support, resources, and third-party integrations, ensuring developers can find solutions and stay updated with the latest trends.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Run Laravel for the first time
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Install Composer
 
-## Code of Conduct
+Windows/Linux
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Mac Os (with Brew)
 
-## Security Vulnerabilities
+```zsh
+brew install composer
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* Env Variables ( If any)
 
-## License
+```zsh
+cp .env.example .env
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* Install package ( If any)
+
+```zsh
+composer install
+```
+
+* Import db locally 
+
+⚠️IMPORTANT⚠️: The db is inside the github repository, the name of it is: <strong> CODISCHOOL.sql </strong>
+⚠️IMPORTANT⚠️: Check DB Name, Username and password for the auth of the users 
+
+* DB_CONNECTION=mysql
+* DB_HOST=127.0.0.1
+* DB_PORT=3306
+* DB_DATABASE=CODISCHOOL
+* DB_USERNAME=root
+
+
+```zsh
+NAME: CODISCHOOL
+utf8_general_ci
+```
+
+* Migrate and start ( If any)
+
+```zsh
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
+
+◉‿◉ You can now access your project at localhost:8000 :)
+
+## If for some reason your project stop working do these:
+- `composer install`
+- `php artisan migrate`
+
+
+
+
+
+
+
+
