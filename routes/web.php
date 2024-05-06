@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,15 @@ Route::get('/student/login', function () {
     return view('codischool_loginstudent');
 })->name('login.student_get');
 
+
+Route::get('/teacher/login', function () {
+    return view('teacher/login_teacher');
+})->name('login.teacher_get');
+
+Route::get('/admin/login', function () {
+    return view('administrator/index');
+})->name('login.admin_get');  
+
 Route::post('/send-email', [SendEmailController::class, 'sendEmail'])->name('send.email');
 Route::post('/student/login',[StudentController::class,'login'])->name('login.student');
 Route::get('/student/dashboard',[StudentController::class,'dashboard'])->name('student.dashboard');
@@ -33,5 +44,16 @@ Route::get('send/mail/contact={id}', [SendEmailController::class,'mail_pass'])->
 Route::post('send/mail/', [SendEmailController::class,'sendEmail_teacher'])->name('send.mail_teacher_due');
 Route::get('/generate-pdf',[StudentController::class,'generatePDF'])->name('generate.pdf');
 Route::post('/send-chat-message', [StudentController::class, 'sendChatMessage']);
-#root for registration of the student
+Route::get('/teacher/logout', [TeacherController::class, 'logout'])->name('logout.teacher');
+Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard'])->name('teacher.dashboard');
+Route::post('/teacher/login', [TeacherController::class,'login'])->name('login.teacher');
+Route::post('/teacher/mark', [TeacherController::class,'mark'])->name('insert.mark');
+Route::post('/teacher/insert_homework', [TeacherController::class,'insert_homework'])->name('insert.homework');
+Route::post('/teacher/dashboard_class', [TeacherController::class,'dashboard_class'])->name('teacher.dashboard_class');
+Route::get('/teacher/dashboard_class/{classe}', [TeacherController::class,'dashboard_class_x'])->name('teacher.dashboard_class_x');
+Route::post('/admin/fa', [AdministratorController::class,'fafa'])->name('admin.fa');
+Route::get('/admin/dashboard', [AdministratorController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/logout', [AdministratorController::class, 'logout'])->name('logout.admin');
+
+
 

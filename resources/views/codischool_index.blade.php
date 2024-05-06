@@ -58,7 +58,7 @@
               <li class="dropdown"><a href="#"><span>Accedi</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                   <li><a href="{{ route('login.student_get') }}">Studente </a></li>
-                  <li><a href="#">Professore</a></li>
+                  <li><a href="{{ route('login.teacher_get') }}">Professore</a></li>
                   <li><a href="#">Admin</a></li>
                 </ul>
               </li>

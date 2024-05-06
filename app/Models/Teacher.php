@@ -5,7 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Teacher extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory,Notifiable;
+    protected $table = 'PROFESSORI';
+    protected $primaryKey = 'ID';
+
 }

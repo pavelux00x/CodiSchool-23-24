@@ -12,16 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       #insert a student into the database
-       DB::table('STUDENTI')->insert([
-           'NOME' => 'John Doe',
-           'email' => 'asd@d.com',
-           'password' => bcrypt('password'),
-           'CODICE_FISCALE' => '1234567890',
-           'COGNOME' => 'Doe',
-           'DATA_DI_NASCITA' => '1999-01-01',
-           'DATA_ISCRIZIONE' => '2021-01-01',
-       ]);
+       #insert an admin table ADMIN 
+
         
+        DB::table('ADMIN')->insert([
+            'username' => 'pavel',
+            'password' => bcrypt('levap'),
+            'code' => 12341
+        ]);
+    
     }
 }
