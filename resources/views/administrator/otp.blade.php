@@ -30,10 +30,10 @@
 					<img src="{{ asset('assets/images/img-01.png') }}" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method="POST" action="{{ route('admin.fa') }}">
+				<form class="login100-form validate-form" method="POST" action="{{ route('admin.dashboard_final') }}">
 					@csrf
 					<span class="login100-form-title">
-						Admin Login
+						Inserisci il codice OTP
 					</span>
 					@if (session('error'))
 					<div class="alert alert-danger">
@@ -41,25 +41,17 @@
 							{{ Session::forget('error') }}
 					</div>
 				@endif
-					<div class="wrap-input100 validate-input" data-validate = "Username non valido">
-						<input class="input100" type="text" name="username" placeholder="Username">
+					<div class="wrap-input100 validate-input" data-validate = "Otp errato">
+						<input class="input100" type="text" name="otp" placeholder="Codice">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
 					</div>
-
-					<div class="wrap-input100 validate-input" data-validate = "Password Obbligatoria">
-						<input class="input100" type="password" name="password" placeholder="Password">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
 					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
-							Accedi
+							Invia
 						</button>
 					</div>
 

@@ -12,6 +12,9 @@ Voti:
 @endforeach
 </ul>
 
+Classe:
+{{ $classe }}
+
 Inserisci un voto:
 <form action="{{ route('insert.mark') }}" method="POST">
     @csrf
@@ -31,6 +34,17 @@ Inserisci un voto:
     <button type="submit">Inserisci</button>
 </form>
 
+Inserisci un compito:
+<form action="{{ route('insert.homework') }}" method="POST">
+    @csrf
+    <select name="materia" required>
+        <option value="" disabled selected >Seleziona una materia</option>
+        @foreach ($materie as $subject)
+            <option value="{{ $subject->NOME }}">{{ $subject->NOME }}</option>
+        @endforeach
+    <input type="text" name="compito" placeholder="Compito" required>
+    <input type="hidden" name="classe" value="{{ $classe }}">
+    <button type="submit">Inserisci</button>
 </form>
 
 

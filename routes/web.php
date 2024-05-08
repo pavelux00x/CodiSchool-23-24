@@ -54,6 +54,7 @@ Route::get('/teacher/dashboard_class/{classe}', [TeacherController::class,'dashb
 Route::post('/admin/fa', [AdministratorController::class,'fafa'])->name('admin.fa');
 Route::get('/admin/dashboard', [AdministratorController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/logout', [AdministratorController::class, 'logout'])->name('logout.admin');
-
-
+Route::get('/admin/opt', [AdministratorController::class, 'opt'])->name('admin.opt');
+Route::post('/admin/dashboard_final', [AdministratorController::class, 'admin_dashboard_final'])->name('admin.dashboard_final');
+Route::get('/api/students/{studentId}', [AdministratorController::class, 'getStudentMarks']);
 

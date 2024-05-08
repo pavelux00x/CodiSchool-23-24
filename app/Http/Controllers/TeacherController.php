@@ -61,6 +61,7 @@ $teacher = Auth::guard('teacher')->user();
 
 $students = DB::table('STUDENTI')
         ->select('STUDENTI.*')
+        ->distinct()  
         ->join('INSEGNAMENTI', 'INSEGNAMENTI.ID_CLASSE', '=', 'STUDENTI.ID_CLASSE')
         ->join('PROFESSORI', 'PROFESSORI.ID', '=', 'INSEGNAMENTI.ID_PROFESSORE')
         ->where('PROFESSORI.ID', '=', $teacher->ID)
@@ -71,12 +72,15 @@ $students = DB::table('STUDENTI')
         ->join('PROFESSORI','PROFESSORI.ID','=','INSEGNAMENTI.ID_PROFESSORE')
         ->where('PROFESSORI.ID','=',$teacher->ID)
         ->get();
+        #distinct is used to avoid duplicates
         $classe=DB::table('CLASSI')
         ->select('CLASSI.*')
+        ->distinct()
         ->join('INSEGNAMENTI','INSEGNAMENTI.ID_CLASSE','=','CLASSI.ID')
         ->join('PROFESSORI','PROFESSORI.ID','=','INSEGNAMENTI.ID_PROFESSORE')
         ->where('PROFESSORI.ID','=',$teacher->ID)
         ->get();
+
 return view('teacher.teacher_dashboard', compact('teacher', 'students','classe'));
 
     }
@@ -133,8 +137,8 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
       //validating the request data
         $validator = Validator::make($request->all(), [
             'compito' => 'required|string',
-            'classe' => 'required|numeric',
-            'materia' => 'required|string'
+            'materia' => 'required|string',
+            'classe' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->route('teacher.dashboard')
@@ -146,15 +150,20 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
         $classe = $request->input('classe');
         $materia = $request->input('materia');
 
+        $classeid=DB::table('CLASSI')
+        ->select('CLASSI.ID')
+        ->where('CLASSI.NOME','=',$classe)
+        ->get();
+
         DB::table('COMPITI')->insert([
             'title' => $materia,
             'description' => $homework,
             'start'=> now(),
             'end'=> now(),
-            'classe' => $classe,
+            'classe' => $classeid[0]->ID,
         ]);
 
-        return redirect()->route('teacher.dashboard_final');
+        return redirect()->route('teacher.dashboard_class_x', $classe)->withInput();
     }
 
     public function dashboard_class(Request $request){
@@ -175,6 +184,7 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
         $classe=$id;
         $students = DB::table('STUDENTI')
         ->select('STUDENTI.*')
+        ->distinct()
         ->join('INSEGNAMENTI', 'INSEGNAMENTI.ID_CLASSE', '=', 'STUDENTI.ID_CLASSE')
         ->join('PROFESSORI', 'PROFESSORI.ID', '=', 'INSEGNAMENTI.ID_PROFESSORE')
         ->where('PROFESSORI.ID', '=', $teacher->ID)
@@ -188,6 +198,7 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
         ->get();   
         $marks=DB::table('STUDENTI')
         ->select('STUDENTI.NOME','STUDENTI.COGNOME','VOTI.VALUTAZIONE','VOTI.DATA','VOTI.TIPO','CLASSI.ID as ID_CLASSE')
+        ->distinct()
         ->join('CLASSI','CLASSI.ID','=','STUDENTI.ID_CLASSE')
         ->join('INSEGNAMENTI','INSEGNAMENTI.ID_CLASSE','=','CLASSI.ID')
         ->join('PROFESSORI','PROFESSORI.ID','=','INSEGNAMENTI.ID_PROFESSORE')
@@ -197,6 +208,12 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
         ->where('VOTI.ID_INSEGNAMENTO','=',$id_insegnamento[0]->ID)
         ->orderBy('STUDENTI.COGNOME')
         ->get();
-        return view('teacher.dashboard_final', compact('teacher', 'students','classe','marks'));
+        $materie=DB::table('INSEGNAMENTI')
+        #SELECT MATERIE.NOME FROM `INSEGNAMENTI` inner join MATERIE on MATERIE.ID=INSEGNAMENTI.ID_MATERIA where ID_PROFESSORE=1
+        ->select('MATERIE.NOME')
+        ->join('MATERIE','MATERIE.ID','=','INSEGNAMENTI.ID_MATERIA')
+        ->where('INSEGNAMENTI.ID_PROFESSORE','=',$teacher->ID)
+        ->get();
+        return view('teacher.dashboard_final', compact('teacher', 'students','classe','marks','materie'));
     }
 }
