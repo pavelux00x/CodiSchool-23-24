@@ -135,6 +135,9 @@ class StudentController extends Controller
 
 public function sendChatMessage(Request $request)
     {
+        if (!Auth::guard('student')->check()) {
+            return response()->json(['error' => 'Unauthorized']);
+        }
         $userMessage = $request->input('message');
 
         // Construct payload
@@ -157,11 +160,12 @@ public function sendChatMessage(Request $request)
             'stop' => null,
         ];
         $api_key = env('AZURE_API_KEY');
+        $model=env('AZURE_ENDPOINT');
         // Make request to OpenAI API
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'api-key' => $api_key, // Replace with your actual API key
-        ])->post('https://pavelitoopenai.openai.azure.com/openai/deployments/Pave3l/chat/completions?api-version=2023-07-01-preview', $payload);
+        ])->post($model, $payload);
 
         // Get bot response
         $botResponse = $response->json('choices.0.message.content');

@@ -101,11 +101,41 @@ public function admin_dashboard_final(Request $request){
 
 public function getStudentMarks($studentId)
 {
-
+    if(!Auth::guard('admin')->check()){
+        $message="Non sei autorizzato a visualizzare questa pagina";
+        return response()->json($message);
+    }
     $marks = DB::table('VOTI')->where('ID_STUDENTE', $studentId)->get();
 
     // Return the marks in JSON format
     return response()->json($marks);
 }
+
+
+
+public function getStudentsByClass($classId)
+{
+    if(!Auth::guard('admin')->check()){
+        $message="Non sei autorizzato a visualizzare questa pagina";
+        return response()->json($message);
+    }
+    $students = DB::table('STUDENTI')->where('ID_CLASSE', $classId)->get();
+
+    // Return the students in JSON format
+    return response()->json($students);
+
+}
+
+public function getTeachers($teacherId)
+{
+    if(!Auth::guard('admin')->check()){
+        $message="Non sei autorizzato a visualizzare questa pagina";
+        return response()->json($message);
+    }
+    $teacher = DB::table('PROFESSORI')->where('ID', $teacherId)->get();
+    return response()->json($teacher);
+
+}
+
 }
 

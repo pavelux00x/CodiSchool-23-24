@@ -94,6 +94,9 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
 
     public function mark(Request $request)
     {
+        if(!Auth::guard('teacher')->check()){
+            return redirect()->route('login.teacher_get');
+        }
         $validator = Validator::make($request->all(), [
             'mark' => 'required|numeric|min:1|max:10',
             'student' => 'required|numeric',
@@ -135,6 +138,9 @@ return view('teacher.teacher_dashboard', compact('teacher', 'students','classe')
     public function insert_homework(Request $request)
     {
       //validating the request data
+      if(!Auth::guard('teacher')->check()){
+            return redirect()->route('login.teacher_get');
+        }
         $validator = Validator::make($request->all(), [
             'compito' => 'required|string',
             'materia' => 'required|string',
